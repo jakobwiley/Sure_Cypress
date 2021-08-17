@@ -17,7 +17,7 @@ describe('hurricane insurance building materials page', () => {
     it('Customer submits without selecting a building material option', () => {
     //Next button dooesn't have a disabled UI or UX state. SURE-28 JIRA TICKET.
         cy.contains('Next').click()
-        cy.get('.jss5 > .MuiTypography-root').should('not.have.text', 'Is your home located within 1 mile of a body of water?') //since there is no UX message telling users they need to select an option, i'm vailding the header on the next page doesn't show up
+        cy.get('.jss5 > .MuiTypography-root').should('not.have.text', 'Is your home located within 1 mile of a body of water?') //since there is no UX message telling users they need to select an option, i'm validating the header on the next page doesn't show up
     })
 
     it('Customer successfully submits building material and advances to the Water Proximity page', () => {
@@ -38,5 +38,4 @@ describe('hurricane insurance building materials page', () => {
         cy.contains('Next').click()
         cy.contains('Is your home located within 1 mile of a body of water?') //validating user advances to next step/page
         })
-    
 })
