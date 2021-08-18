@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('hurricane insurance building materials page', () => {
+describe('Hurricane Insurance Building Materials page', () => {
     beforeEach(() => {
         //Going directly to this page since workflows aren't dependent on Zip Code page
         cy.visit('https://sure-qa-challenge.vercel.app/building-material')
@@ -19,7 +19,8 @@ describe('hurricane insurance building materials page', () => {
     it('Customer submits without selecting a building material option', () => {
     //Next button dooesn't have a disabled UI or UX state. SURE-28 JIRA TICKET.
         cy.contains('Next').click()
-        cy.get('.jss5 > .MuiTypography-root').should('not.have.text', 'Is your home located within 1 mile of a body of water?') //since there is no UX message telling users they need to select an option, i'm validating the header on the next page doesn't show up
+        cy.contains('Is your home located within 1 mile of a body of water?').should('not.exist')
+        //cy.get('.jss5 > .MuiTypography-root').should('not.have.text', 'Is your home located within 1 mile of a body of water?') //since there is no UX message telling users they need to select an option, i'm validating the header on the next page doesn't show up
     })
 
     it('Customer successfully submits building material options and advances to the Water Proximity page', () => {
