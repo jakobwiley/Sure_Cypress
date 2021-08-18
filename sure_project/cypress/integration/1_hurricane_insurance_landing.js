@@ -9,14 +9,16 @@ describe('Hurricane Insurance Landing Page', () => {
     cy.get('.jss7 > .MuiTypography-root').should('have.text', 'Hurricane Insurance')
     cy.get('.MuiInputBase-input') //Zip code text field appears
     cy.get('.MuiButton-label').should('have.text', 'Get a quote')
+    cy.title().should('include', 'Hurricane Insurance') //Tab title
   })
 
   it('Customer submits blank zip code field', () => {
     cy.contains('Get a quote').click()
     cy.get('.MuiFormHelperText-root').should('have.text', 'Required')
+    cy.contains('What building material is your home constructed with?').should('not.exist')
   })
 
-  it('Customer submits invalid zip coode', () => {
+  it('Customer submits invalid zip codes', () => {
     //Zip Code Testing Options
     const invalidShortZipCode= '1234'
     const invalidLetterNumberZipCode= '12AB5'
@@ -57,7 +59,7 @@ describe('Hurricane Insurance Landing Page', () => {
     cy.contains('What type of material is your home constructed with?') //Entering in valid zip code advances you to the Building Materials page
     cy.go('back') //Navigating back to Landing page to continue test
 
-    //Valid zip code with 5 numerical digits advances to the Building Material page by clicking the Get a quote button
+    //Valid zip code with 5 numerical digits advances to the Building Material page by hitting the keyboard enter button
     cy.get('.MuiInputBase-input').type(`${validZipCode}{enter}`)//typing in validZipCode and then pressing the keyboard enter button
     cy.contains('What type of material is your home constructed with?') //Entering in valid zip code advances you to the Building Materials page
   })
