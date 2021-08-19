@@ -15,7 +15,7 @@ describe('Hurricane Insurance Landing Page', () => {
   it('Customer submits blank zip code field returns Required message', () => {
     cy.contains('Get a quote').click()
     cy.get('.MuiFormHelperText-root').should('have.text', 'Required')
-    cy.contains('What building material is your home constructed with?').should('not.exist')
+    cy.contains('What building material is your home constructed with?').should('not.exist') //Confirming you don't advance to the Building Materials page when submitting no zip codoe
   })
 
   it('Customer submits invalid zip code with less than 5 characters returns invalid zip code message', () => {
@@ -24,7 +24,7 @@ describe('Hurricane Insurance Landing Page', () => {
     cy.get('.MuiInputBase-input').type(`${invalidShortZipCode}`)
     cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
     cy.contains('Get a quote').click()
-    cy.get('.MuiInputBase-input').clear()
+    cy.contains('What type of material is your home constructed with?').should('not.exist')  //Confirming you don't advance to the Building Materials page after submitting invalid zip code
   })
 
   it('Customer submits invalid zip code with all letters returns invalid zip code message', () => {
@@ -32,7 +32,7 @@ describe('Hurricane Insurance Landing Page', () => {
     cy.get('.MuiInputBase-input').type(`${invalidLetterZipCode}`)
     cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
     cy.contains('Get a quote').click()
-    cy.get('.MuiInputBase-input').clear()
+    cy.contains('What type of material is your home constructed with?').should('not.exist')  //Confirming you don't advance to the Building Materials page after submitting invalid zip code
   })
   
   it('Customer submits invalid zip code with numbres and letters returns invalid zip code message', () => {
@@ -40,7 +40,7 @@ describe('Hurricane Insurance Landing Page', () => {
     cy.get('.MuiInputBase-input').type(`${invalidLetterNumberZipCode}`)
     cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
     cy.contains('Get a quote').click()
-    cy.get('.MuiInputBase-input').clear()
+    cy.contains('What type of material is your home constructed with?').should('not.exist')  //Confirming you don't advance to the Building Materials page after submitting invalid zip code
   })
   
   it('Customer submits invalid zip code that includes special characters return invalid zip code message', () => {
@@ -48,16 +48,17 @@ describe('Hurricane Insurance Landing Page', () => {
     cy.get('.MuiInputBase-input').type(`${invalidSpecialCharactersZipCode}`)
     cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
     cy.contains('Get a quote').click()
-    cy.get('.MuiInputBase-input').clear()
+    cy.contains('What type of material is your home constructed with?').should('not.exist')  //Confirming you don't advance to the Building Materials page after submitting invalid zip code
   })
 
   it('Customer submits invalid zip code longer than 5 characters returns invalid zip code message', () => {
-    //BUG SURE-27 JIRA TICKET
+    //BUG | SURE-27
     const invalidLongZipCode= '1234567890'
     cy.get('.MuiInputBase-input').type(`${invalidLongZipCode}`)
     cy.contains('Get a quote').click()
-    cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
-    cy.get('.MuiInputBase-input').clear()
+    cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code') //BUG | SURE-27
+    cy.contains('Get a quote').click()
+    cy.contains('What type of material is your home constructed with?').should('not.exist')  //Confirming you don't advance to the Building Materials page after submitting invalid zip code
   })
 
   it('Customer submits valid five digit zip code and moves onto the Building Materials page', () => {

@@ -25,7 +25,7 @@ describe('Setup for Straw Building Material Yes Water Proximity test cases', () 
         cy.get('.jss54 > .MuiTypography-root').should('have.text', 'Extra protection against wind damage caused by hurricanes and other storms.')
         cy.get('.jss55 > .MuiTypography-root').should('have.text', 'Covers your home, as well as other structures on your property including sheds, garages, and fences.')
         cy.get('.MuiFormControlLabel-root > .MuiTypography-root').should('have.text', 'Include Flood Protection (+$971)')
-        cy.get('.jss60').should('not.be.checked')
+        cy.get('.jss60').should('not.be.checked') //Include Floood Protection checkbox should not be checked
         cy.get('.jss61 > .MuiButtonBase-root').should('have.text', 'Choose Complete')
     })
 })
@@ -55,7 +55,7 @@ describe('Setup for Straw Building Material No Water Proximity test cases', () =
         cy.get('.jss54 > .MuiTypography-root').should('have.text', 'Extra protection against wind damage caused by hurricanes and other storms.')
         cy.get('.jss55 > .MuiTypography-root').should('have.text', 'Covers your home, as well as other structures on your property including sheds, garages, and fences.')
         cy.get('.jss61 > .MuiButtonBase-root').should('have.text', 'Choose Complete')
-        cy.get('.jss60').should('be.checked') //Bug | SURE-44
+        cy.get('.jss60').should('be.checked') //Flood Included Checkbox should be checked //Bug | SURE-44 
         cy.get('.MuiFormControlLabel-root > .MuiTypography-root').should('have.text', 'Floood Protection Included') //BUG | SURE-45
     })
 })
