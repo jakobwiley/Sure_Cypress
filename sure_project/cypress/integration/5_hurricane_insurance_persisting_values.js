@@ -54,4 +54,3 @@ describe('Setup for persisting values test cases for the Water Proximity page', 
         cy.get(':nth-child(1) > .MuiButtonBase-root > .MuiIconButton-label > .jss10').should('have.value','true').should('be.checked') //Confirming Straw radio remains is checked
     })
 })
-
