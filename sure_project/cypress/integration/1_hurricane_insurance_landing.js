@@ -12,46 +12,55 @@ describe('Hurricane Insurance Landing Page', () => {
     cy.title().should('include', 'Hurricane Insurance') //Tab title
   })
 
-  it('Customer submits blank zip code field', () => {
+  it('Customer submits blank zip code field returns Required message', () => {
     cy.contains('Get a quote').click()
     cy.get('.MuiFormHelperText-root').should('have.text', 'Required')
     cy.contains('What building material is your home constructed with?').should('not.exist')
   })
 
-  it('Customer submits invalid zip codes', () => {
+  it('Customer submits invalid zip code with less than 5 characters returns invalid zip code message', () => {
     //Zip Code Testing Options
     const invalidShortZipCode= '1234'
-    const invalidLetterNumberZipCode= '12AB5'
-    const invalidLetterZipCode= 'ABCDE'
-    const invalidLongZipCode= '1234567890'
-
-    //Zip codes with less than 5 characters return invalid zip code message
     cy.get('.MuiInputBase-input').type(`${invalidShortZipCode}`)
     cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
     cy.contains('Get a quote').click()
     cy.get('.MuiInputBase-input').clear()
+  })
 
-    //Zip codes including letters return invalid zip code message
+  it('Customer submits invalid zip code with all letters returns invalid zip code message', () => {
+    const invalidLetterZipCode= 'ABCDE'
     cy.get('.MuiInputBase-input').type(`${invalidLetterZipCode}`)
     cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
     cy.contains('Get a quote').click()
     cy.get('.MuiInputBase-input').clear()
-
-    //Zip codes including letters and numbers return invalid zip code message
+  })
+  
+  it('Customer submits invalid zip code with numbres and letters returns invalid zip code message', () => {
+    const invalidLetterNumberZipCode= '12AB5'
     cy.get('.MuiInputBase-input').type(`${invalidLetterNumberZipCode}`)
     cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
     cy.contains('Get a quote').click()
     cy.get('.MuiInputBase-input').clear()
-   
-    //Zip codes longer than 5 characters return invalid zip code message
+  })
+  
+  it('Customer submits invalid zip code that includes special characters return invalid zip code message', () => {
+    const invalidSpecialCharactersZipCode= '12!?*#'
+    cy.get('.MuiInputBase-input').type(`${invalidSpecialCharactersZipCode}`)
+    cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
+    cy.contains('Get a quote').click()
+    cy.get('.MuiInputBase-input').clear()
+  })
+
+  it('Customer submits invalid zip code longer than 5 characters returns invalid zip code message', () => {
     //BUG SURE-27 JIRA TICKET
+    const invalidLongZipCode= '1234567890'
     cy.get('.MuiInputBase-input').type(`${invalidLongZipCode}`)
     cy.contains('Get a quote').click()
     cy.get('.MuiFormHelperText-root').should('have.text', 'Invalid zip code')
     cy.get('.MuiInputBase-input').clear()
   })
 
-  it('Customer submites valid zip code', () => {
+  it('Customer submits valid five digit zip code and moves onto the Building Materials page', () => {
     const validZipCode= '68406'
     //Valid zip code with 5 numerical digits advances to the Building Material page by clicking the Get a quote button
     cy.get('.MuiInputBase-input').type(`${validZipCode}`)
